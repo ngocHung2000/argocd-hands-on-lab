@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: guestbook
+  namespace: argocd
+spec:
+  destination:
+    namespace: hungtn29
+    server: "https://kubernetes.default.svc"
+  project: default
+  source:
+    path: nginx-app-charts
+    repoURL: "https://github.com/ngocHung2000/argocd-hands-on-lab.git"
+    targetRevision: master
+    helm:
+      releaseName: guestbook
+      valueFiles:
+      - values.yaml
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true

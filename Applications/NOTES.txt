@@ -1,0 +1,15 @@
+1. ArgoCD Application
+- Application is a Kubernetes resource object represnting a deployed application instance in an environment
+- It is defined by two key pieces of information:
+    + Source: reference to the desired state in Git (repository, revision, path)
+    + Destination: reference to the target cluster and namespace
+- Application can be created using below options
+    + Declaratively YAML (recommended)
+    + Web UI
+    + CLI
+    + Terraform (HCL)
+- ArgoCD supports the below tools as Source
+    + Helm charts
+    + Kustomzie application
+    + Directory of YAML file
+    + Jsonnet

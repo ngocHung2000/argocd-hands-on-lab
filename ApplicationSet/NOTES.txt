@@ -1,0 +1,22 @@
+ApplicationSet
+- Its a controller and CRD that provides:
+    + Automating the application generations
+    + More Flexiblity when managing ArgoCD Applications across a large number of clusters
+    + Ability to make self-service usage on multitenant clusters
+
+Use cases
+- Use a single Kubernetes manifest to deploy into multiple Kubernetes cluster with ArgoCD
+- Use a single Kubernetes manifest to deploy multiple application from one or multiple Git repositories with ArgoCD
+- Multitenacy support, improves the ability of individual cluster tenants to deploy applications using ArgoCD
+Ex: Developers can deploy services into specific cluster/namespace without engaging clusters admins
+
+How it workes
+- ApplicationSet controller only responsible of creating, updating and deleting application in ArgoCD namespace
+- ApplicationSet does not modify k8s resources. Its Application controller responsibility to deploy resouces into destination clusters
+
+Generators
+- Generators are responsible for generating parameters, which are then rendered into application template
+- Generators are primarily based on the data source that they use to generate the template parameters
+
+Installation
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/applicationset/v0.4.1/manifests/install.yaml

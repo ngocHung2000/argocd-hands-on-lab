@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: private-repo
+  namespace: argocd
+  labels:
+    argocd.argoproj.io/secret-type: repository
+stringData:
+  type: git
+  url: "https://github.com.private.repo.com"
+  username: YOU_USER
+  password: YOUR_PASSWORD
+  tlsClientCertData: YOUR_CERT
+  tlsClientCertKey: YOUR_KEY

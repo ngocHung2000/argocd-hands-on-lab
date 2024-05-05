@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: guestbook
+spec:
+  generators:
+  - list:
+      elements:
+      - cluster: cluster-dc
+        url: https://k8s-dc.com.vn
+      - cluster: cluster-dr
+        url: https://k8s-dr.com.vn
+  template:
+    metadata:
+      name: '{{cluster}}-guestbook'
+    spec: 
+      destination:
+        server: '{{url}}'
+        namespace: guestbook
+      source:
+        repoURL: https://git..com/..
+        targetRevision: master
+        path: 'guestbook-{{cluster}}'

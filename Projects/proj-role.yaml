@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata: 
+  name: project-with-role
+  namespace: argocd
+spec: 
+  description: Project Custom Define
+  sourceRepos:
+  - "*" # Allow everything repository
+  # - "https://github.com/demo/argocd-example.git"
+  destinations:
+  - server: https://kubernetes.default.svc
+    namespace: default
+  clusterResourceWhitelist:
+  - group: "*"
+    kind: "*"
+  namespaceResourceWhitelist: # Deny all namespaced-scoped resources from being created, except for Deployment
+  - group: "*"
+    kind: "*"
+  roles:
+  - name: ci-role
+    description: Sync privileges for project-with-role
+    policies:
+    - p, proj:project-with-role:ci-role, applications, sync, project-with-role/*, allow

@@ -1,0 +1,2 @@
+# Add credentials with user/pass authentication to use for all repositories under https://git.example/repos
+argocd repocreds add https://github.com/ngocHung1809 --username YOUR_USER --password YOUR_PASSWORD

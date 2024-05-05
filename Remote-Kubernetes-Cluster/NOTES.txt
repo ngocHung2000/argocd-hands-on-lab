@@ -1,0 +1,17 @@
+K8s Cluster in ArgoCD
+- ArgoCD can deploy application resource in to local or remote clusters
+- By default ArgoCD has permission to deploy in to the local cluster where its running
+- We can add remote k8s cluster information including credentials as k8s secret
+    + Each secret must have label of argocd.argoproj.io/secret-type: cluster
+    + Each cluster must have the below data:
+        + Name
+        + Server (Cluster api server url)
+        + Config (an option to authenticate to cluster)
+        + Namespaces (optional): comma-separated list of namespaces which are accessible in that cluster
+- You can add remote clusters declarativly or using cli
+- There are many option to authenicate to remote clusters:
+    + Basic authenication (username and passwd)
+    + Bearer token authenication
+    + IAM authenication configuration ( suiable for cloud k8s cluster )
+    + External provider command to supply client credentials.
+    

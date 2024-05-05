@@ -13,3 +13,9 @@
     + Kustomzie application
     + Directory of YAML file
     + Jsonnet
+- ArgoCD provies the below for options
+    + Release name
+    + Values files
+    + Parameters
+    + File parameters
+    + Values as block file

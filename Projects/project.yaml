@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata: 
+  name: example-project
+  namespace: argocd
+spec: 
+  description: Project Custom Define
+  sourceRepos:
+  - "*" # Allow everything repository
+  # - "https://github.com/demo/argocd-example.git"
+  destinations:
+  - server: https://kubernetes.default.svc
+    namespace: default
+  # - server: "*"
+  #   namespace: "*"
+  clusterResourceWhitelist:
+  - group: "*"
+    kind: "*"
+  # - group: ""
+  #   kind: "Namespace"
+  namespaceResourceWhitelist: # Deny all namespaced-scoped resources from being created, except for Deployment
+  - group: "*"
+    kind: "*"
+  # - group: "apps" 
+    # kind: "Deployments"
+
+  # namespaceResourceBlacklist: # Allow all namespaced-scoped resources to be created, except for NetworkPolicy
+  # # - group: "*"
+  # #   kind: "*"
+  # - group: "" 
+  #   kind: "NetworkPolicy"

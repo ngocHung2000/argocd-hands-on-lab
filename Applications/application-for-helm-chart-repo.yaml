@@ -1,3 +1,4 @@
+# Helm Type Of Release Name
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -14,6 +15,103 @@ spec:
     targetRevision: 1.16.1 # For helm, this refers to the chart version.
     helm:
       releaseName: sealed-secrets
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+---
+# Helm Type Of Values files
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: guestbook
+  namespace: argocd
+spec:
+  destination:
+    namespace: hungtn29
+    server: "https://kubernetes.default.svc"
+  project: default
+  source:
+    chart: sealed-secrets
+    repoURL: "https://demo.git"
+    targetRevision: master
+    helm:
+      valuesFiles:
+      - values-prod.yaml
+      - values-uat.yaml
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+---
+# Helm Type Of Parameters
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: guestbook
+  namespace: argocd
+spec:
+  destination:
+    namespace: hungtn29
+    server: "https://kubernetes.default.svc"
+  project: default
+  source:
+    chart: sealed-secrets
+    repoURL: "https://demo.git"
+    targetRevision: master
+    helm:
+      parameters:
+      - name: "service.type"
+        value: LoadBalancer
+      - name: "image.tag"
+        value: v2
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+---
+# Helm Type Of File Parameters
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: guestbook
+  namespace: argocd
+spec:
+  destination:
+    namespace: hungtn29
+    server: "https://kubernetes.default.svc"
+  project: default
+  source:
+    chart: sealed-secrets
+    repoURL: "https://demo.git"
+    targetRevision: master
+    helm:
+      fileParameters:
+      - name: config
+        value: files/config.json
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+---
+# Helm Type Of Values as block
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: guestbook
+  namespace: argocd
+spec:
+  destination:
+    namespace: hungtn29
+    server: "https://kubernetes.default.svc"
+  project: default
+  source:
+    chart: sealed-secrets
+    repoURL: "https://demo.git"
+    targetRevision: master
+    helm:
+      values: |
+        ingress:
+          enabled: true
+          path: /
+          hosts:
+            - mydomain.example.com
   syncPolicy:
     syncOptions:
       - CreateNamespace=true

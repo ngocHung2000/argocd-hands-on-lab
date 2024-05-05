@@ -1,0 +1,24 @@
+Private Git Repos
+- Public repos can be used diectly in  application
+- Private repos needs to be registed in ArgoCD with proper authentication before using it in applications
+- ARgoCD support connecting to private repos using below
+    + HTTPs: using username and password or token
+    + SSH: using ssh private key
+    + Github / Github Enterprise: GitHub App credentials
+- Private repos credentials are stored in normal k8s secrets
+- You can register repos using declarative approach, cli and web ui
+
+Helm Repos
+- Public standard Helm repos can be used directly in application
+- Non standard Helm repositories have to be registered explicitly
+- Private Helm repos needs to be registered in ArgoCD with proper authentication before using it in applications
+- ArgoCD support connecting to private Helm repos using username/password and tls cert/key
+- Registering Helm repos in ArgoCD can be done declaratively CLI and Web UI
+
+Credential Template
+- Used if you want to use the same credentials for multiple repositories in your organization without having to repeat credential configuration
+- Defined as same as repositories credentials information, with different label value "argocd.aroproj.io/secret-type: repo-creds"
+- In order for ArgoCD to use a credential template for any given repository, the fllowing conditions (e.g. https://github.com/ngocHung1809) must be met:
+    + The URL configured for a credential template must math as prefix for the repository (e.g. https://github.com/ngocHung1809/argocd-example)
+    + The repository must either not be configured at all, or if configured, must not contain any credential information
+- Registering credentials in ArgoCD can be done declaratively, CLI and Web UI

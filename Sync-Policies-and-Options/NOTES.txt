@@ -1,0 +1,17 @@
+Automated Sync
+- By default, ArgoCD polls Git repositories every 3 minutes to detect changes to the manifests
+- ArgoCD can automatically sync apps when it detects differents between the desired manifests in Git, and the live state in the cluster
+    + No need to do manual sync anymore
+    + CI/CD pipelines no longer need direct access.
+- Notes:
+    + An automated sync will not only be perfomed if the application is OutOfSync
+    + Automatic sync will not reattempt a sync if the previous sync attempt against the same commit SHA and parameters has failed
+    + Rollback cannot be performed against an application with automated sync enabled
+
+Automated Prunning
+- Default - no prune: when automated sync is enabled, by default for safety automated sync will not delete resources when ArgoCD detects the resource is no longer defined in Git
+- Pruning can be enabled to delete resources automatically as part of the automated sync.
+
+Automated Self Healing
+- By default, changes that are made to the live cluster will not trigger automated sync
+- ArgoCD has a feature to enable self healing when the live cluster deviates from Git state

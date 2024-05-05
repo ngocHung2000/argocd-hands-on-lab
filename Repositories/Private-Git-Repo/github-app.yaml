@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: private-repo
+  namespace: argocd
+  labels:
+    argocd.argoproj.io/secret-type: repository
+stringData:
+  type: git
+  url: "https://github.com.private.repo.com"
+  githubAppID: "1"
+  githubAppInstallationID: "2"
+  githubAppPrivateKey: |
+    ---BEGIN OPENSSH PRIVATE KEY---
+    ...
+    ---END OPENSSH PRIVATE KEY---

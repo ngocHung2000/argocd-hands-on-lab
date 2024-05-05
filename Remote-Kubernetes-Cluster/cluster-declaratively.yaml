@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: staging-cluster-01
+  namespace: argocd
+  labels: 
+    argocd.argoproj.io/secret-type: cluster
+    environment: "staging"
+    provider: "aws"
+stringData: 
+  name: staging-cluster-01
+  server: https://mycluster.com
+  config: |
+    {
+      "bearerToken": "authentication_token"
+      "tlsClientConfig": {
+        "insecure": false,
+        "caData": "base64_encoded_certificate"
+      }
+    }
+# https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_cluster_add/
+# argocd cluster add CONTEXT FLAG

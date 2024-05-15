@@ -1,3 +1,6 @@
+Installation
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/applicationset/v0.4.1/manifests/install.yaml
+
 ApplicationSet
 - Its a controller and CRD that provides:
     + Automating the application generations
@@ -17,6 +20,15 @@ How it workes
 Generators
 - Generators are responsible for generating parameters, which are then rendered into application template
 - Generators are primarily based on the data source that they use to generate the template parameters
+- Generators are responsible for generating parameters and are based on data sources, which can be used to generaters into the application template
+- Type of Generators
+    + list
+    + cluster
+    + Git
+    + Matrix
+    + Merge
+    + SCM provider
+    + Pull request
+    + Cluster Decision resource
+    
 
-Installation
-kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/applicationset/v0.4.1/manifests/install.yaml

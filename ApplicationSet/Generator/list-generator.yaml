@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata: 
+  name: guestbook
+spec:
+  generators:
+    - list:
+        elements:
+        - cluster: cluster-dc
+          url: https://cluster-dc.com.vn
+        - cluster: cluster-dr
+          url: https://cluster-dr.com.vn
+template:
+  metadata: 
+    name: '{{cluster}}-guestbook'
+  spec:
+    destination:
+      server: '{{url}}'
+      namespace: guestbook
+    source:
+      repoURL: https://github.com/argoproj/example.git
+      targetRevision: master
+      path: guestbook/{{cluster}}
+# List Generator
+# - The list generator allows you to target ArgoCD Applications to clusters based on a fixed list of cluster name/URL values
+# - Any key/value element pair is supported
+# - Clusters need to be pre-defined in ArgoCD
